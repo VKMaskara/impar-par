@@ -4,11 +4,17 @@
 
 import os
 import random
+import sys
 import time
 
 # Função para limpar a tela do terminal
 def limpar_tela():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    """
+    Limpa a tela do terminal.
+    windows: cls
+    linux/mac: clear
+    """
+    os.system('cls' if os.name == 'nt' else 'clear') # Limpa a tela do terminal de acordo com o sistema operacional
 
 # Função para imprimir o placar final do jogo
 def imprimir_placar_final():
@@ -44,13 +50,18 @@ imprimir_cabecalho()  # Mostra o cabeçalho
 
 # tela de boas vindas
 nome = str(input('Olá, qual é o seu nome? ')).strip().title()  # Pede o nome do jogador
-resposta = input(f'Prazer em te conhecer, {nome}!\nMeu nome é Ímparius e vamos jogar? (S/N) ').strip().upper()  # Pergunta se quer jogar
-if resposta == 'S':
-    print('Ótimo! Vamos começar!')
-else:
-    print('Tudo bem! Quando quiser jogar, é só me chamar.')
-    exit()  # encerra caso o jogador não queira jogar
-
+while True:
+    resposta = input(f'Prazer em te conhecer, {nome}!\nMeu nome é Ímparius e vamos jogar? (S/N) ').strip().upper()  # Pergunta se quer jogar
+    if resposta == 'S':
+        print('Ótimo! Vamos começar!')
+        break
+    elif resposta == 'N':
+        print('Tudo bem! Quando quiser jogar, é só me chamar.')
+        sys.exit() # encerra caso o jogador não queira jogar
+    else:
+        print('⚠️ Resposta inválida. Por favor, digite S para sim ou N para não.')
+        continue
+    
 time.sleep(2)  # Espera 2 segundos
 limpar_tela()  # Limpa a tela
 imprimir_cabecalho()  # Mostra o cabeçalho novamente
@@ -63,7 +74,7 @@ print('3. A soma decide o vencedor da rodada.')
 print('4. Ao sair, exibiremos seu placar final.')
 
 print('\nO jogo vai começar em:')
-for i in range(5, 0, -1):
+for i in range(10, 0, -1):
     print(f'{i}...', end='', flush=True)
     time.sleep(1)
 print('\n')
@@ -122,16 +133,21 @@ while True:
         print(f"{jogador['nome']}: {jogador['pontos']} pontos")
 
     # opção de continuar ou sair
-    continuar = input('\nVocê quer jogar novamente? (S/N) ').strip().upper()  # Pergunta se quer jogar de novo
-    if continuar != 'S':
-        break
-
-    time.sleep(2)  # Espera 2 segundos
-    limpar_tela()  # Limpa a tela
-    imprimir_cabecalho()  # Mostra o cabeçalho
-
-# fim do jogo
-limpar_tela()  # Limpa a tela
-imprimir_cabecalho()  # Mostra o cabeçalho
-imprimir_placar_final()  # Mostra o placar final
-print('\nObrigado por jogar! Até a próxima!')
+    while True:
+        continuar = input('\nVocê quer jogar novamente? (S/N) ').strip().upper()
+        if continuar == 'S':
+            print('Ótimo! Vamos para a próxima rodada!')
+            time.sleep(2)
+            limpar_tela()
+            imprimir_cabecalho()
+            break  # Continua o loop principal para nova rodada
+        elif continuar == 'N':
+            print('Tudo bem! Quando quiser jogar, é só me chamar.')
+            # Sai do loop principal do jogo
+            limpar_tela()
+            imprimir_cabecalho()
+            imprimir_placar_final()
+            print('\nObrigado por jogar! Até a próxima!')
+            sys.exit()
+        else:
+            print('⚠️ Desculpa, não entendi sua resposta. Tente novamente.')
