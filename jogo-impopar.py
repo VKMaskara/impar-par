@@ -2,11 +2,12 @@
 # DUPLA: KAIQUE SOUSA E VITOR KAUÊ
 # DATA: 25/09/2025
 
-import os
-import random
-import sys
-import time
+import os # Função pra limpar a tela
+import random # Escolhar do numero
+import sys # função de finalizar o código e sair do loop
+import time # Temporizador
 
+# ========================= FUNÇÕES ========================= #
 # Função para limpar a tela do terminal
 def limpar_tela():
     """
@@ -14,7 +15,9 @@ def limpar_tela():
     windows: cls
     linux/mac: clear
     """
+    print("\n" * 100)
     os.system('cls' if os.name == 'nt' else 'clear') # Limpa a tela do terminal de acordo com o sistema operacional
+    
 
 # Função para imprimir o placar final do jogo
 def imprimir_placar_final():
@@ -40,7 +43,7 @@ def imprimir_placar_final():
 # Função para imprimir o cabeçalho do jogo
 def imprimir_cabecalho():
     print('=-'*30)
-    print('JOGO DE PAR OU ÍMPAR'.center(60))
+    print('BEM-VINDO AO JOGO DE PAR OU ÍMPAR'.center(60))
     print('=-'*30)
     time.sleep(1)
 
@@ -75,8 +78,9 @@ print('4. Ao sair, exibiremos seu placar final.')
 
 print('\nO jogo vai começar em:')
 for i in range(10, 0, -1):
-    print(f'{i}...', end='', flush=True)
+    print(f'{i}...', end='', flush=True) #flush=True para não travar
     time.sleep(1)
+
 print('\n')
 print('=-'*30)
 print(f'Jogo iniciado! Boa sorte, {nome}!'.center(60))
@@ -86,7 +90,7 @@ time.sleep(2)  # Espera 2 segundos
 limpar_tela()  # Limpa a tela
 imprimir_cabecalho()  # Mostra o cabeçalho
 
-# variáveis
+# variável
 placar_pontos = [{'nome': nome, 'pontos': 0}, {'nome': 'Ímparius', 'pontos': 0}]  # Inicializa o placar
 
 # loop principal do jogo
@@ -98,9 +102,9 @@ while True:
             if 1 <= jogador_numero <= 5:
                 break
             else:
-                print('⚠️ Por favor, escolha um número entre 1 e 5.')
+                print(f'{COR_VERMELHO}⚠️ Por favor, escolha um número entre 1 e 5.')
         except ValueError:
-            print('⚠️ Por favor, insira um número inteiro válido.')
+            print(f'{COR_VERMELHO}⚠️ Por favor, insira um número inteiro válido.')
 
     # escolha do jogador (par/ímpar)
     while True:
@@ -142,11 +146,10 @@ while True:
             imprimir_cabecalho()
             break  # Continua o loop principal para nova rodada
         elif continuar == 'N':
-            print('Tudo bem! Quando quiser jogar, é só me chamar.')
             # Sai do loop principal do jogo
-            limpar_tela()
-            imprimir_cabecalho()
-            imprimir_placar_final()
+            limpar_tela()  # Limpa a tela
+            imprimir_cabecalho()  # Mostra o cabeçalho limpo no topo
+            imprimir_placar_final()  # Mostra o placar final logo abaixo
             print('\nObrigado por jogar! Até a próxima!')
             sys.exit()
         else:
