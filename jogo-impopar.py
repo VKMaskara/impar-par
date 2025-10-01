@@ -78,7 +78,7 @@ print('4. Ao sair, exibiremos seu placar final.')
 
 print('\nO jogo vai começar em:')
 for i in range(10, 0, -1):
-    print(f'{i}...', end='', flush=True) #flush=True para não travar
+    print(f'\r{i} segundos', end='', flush=True) #flush=True para não travar
     time.sleep(1)
 
 print('\n')
