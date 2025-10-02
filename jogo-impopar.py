@@ -29,30 +29,27 @@ def limpar_tela():
     print("\n" * 100)
     os.system('cls' if os.name == 'nt' else 'clear') # Limpa a tela do terminal de acordo com o sistema operacional
     
-
 # Função para imprimir o placar final do jogo
 def imprimir_placar_final():
     print('\n' + '='*60)
-    print(f'{NEGRITO}{AZUL}🏆 PLACAR FINAL 🏆{RESET}'.center(68))
+    print('🏆 PLACAR FINAL 🏆'.center(60))
     print('='*60)
-    print(f"{NEGRITO}{'JOGADOR':<30}{'PONTOS':>30}{RESET}")
+    print(f"{'JOGADOR':<30}{'PONTOS':>30}")
     print('-'*60)
     for jogador in placar_pontos:
-        if jogador['pontos'] == max(j['pontos'] for j in placar_pontos):
-            print(f"{VERDE}{jogador['nome']:<30}{jogador['pontos']:>30} 👑{RESET}")
-        else:
-            print(f"{BRANCO}{jogador['nome']:<30}{jogador['pontos']:>30}{RESET}")
+        print(f"{jogador['nome']:<30}{jogador['pontos']:>30}")
     print('-'*60)
     total_pontos = sum(j['pontos'] for j in placar_pontos)
-    print(f"{AMARELO}{'TOTAL DE PONTOS':<30}{total_pontos:>30}{RESET}")
+    print(f"{'TOTAL DE PONTOS':<30}{total_pontos:>30}")
     print('='*60)
+    
     # Determina o vencedor
     if placar_pontos[0]['pontos'] > placar_pontos[1]['pontos']:
-        print(f"\n{VERDE}🎉 Parabéns, {placar_pontos[0]['nome']}! Você venceu o jogo! 🎉{RESET}")
+        print(f"\n🎉 Parabéns, {placar_pontos[0]['nome']}! Você venceu o jogo! 🎉")
     elif placar_pontos[0]['pontos'] < placar_pontos[1]['pontos']:
-        print(f"\n{MAGENTA}🤖 {placar_pontos[1]['nome']} venceu o jogo! Tente novamente!{RESET}")
+        print(f"\n{placar_pontos[1]['nome']} venceu o jogo! Tente novamente!")
     else:
-        print(f"\n{AMARELO}🤝 Empate! Que disputa acirrada!{RESET}")
+        print("\n🤝 Empate! Que disputa acirrada!")
 
 # Função para imprimir o cabeçalho do jogo
 def imprimir_cabecalho():
@@ -66,7 +63,13 @@ limpar_tela()  # Limpa a tela antes de iniciar
 imprimir_cabecalho()  # Mostra o cabeçalho
 
 # tela de boas vindas
-nome = str(input(f'{AMARELO}Olá, qual é o seu nome? {RESET}')).strip().title()  # Pede o nome do jogador
+while True:
+    nome = str(input(f'{AMARELO}Olá, qual é o seu nome? {RESET}')).strip().title()
+    if nome and len(nome) >= 2:  # Pelo menos 2 caracteres
+        break
+    else:
+        print(f'{VERMELHO}⚠️ Por favor, digite um nome válido (mínimo 2 letras).{RESET}')
+
 while True:
     resposta = input(f'{AZUL}Prazer em te conhecer, {nome}!\nMeu nome é Ímparius e vamos jogar? (S/N) {RESET}').strip().upper()  # Pergunta se quer jogar
     if resposta == 'S':
